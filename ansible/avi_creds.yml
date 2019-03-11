@@ -1,0 +1,16 @@
+avi_credentials:
+  controller: "{{controller_ip}}"
+  username: admin
+  password: "{{password}}"
+  api_version: 18.1.5
+
+ew_subnet: "169.254.0.0"
+ew_subnet_start: "169.254.0.2"
+ew_subnet_end: "169.254.0.254"
+
+ns_subnet: "10.70.119.0"
+ns_subnet_start: "10.70.119.101"
+ns_subnet_end: "10.70.119.120"
+
+project_name: "ranga"
+kube_master_node: "10.70.119.34:8443"
