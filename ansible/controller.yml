@@ -1,0 +1,9 @@
+- hosts: controllers
+  roles:
+  - role: avinetworks.avicontroller
+    become: true
+    ansible_memtotal_mb: 13000
+    con_cores: 4
+    con_disk_gb: 32
+    con_max_cores: 8
+    con_memory_gb: 12
