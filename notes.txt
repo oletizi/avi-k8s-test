@@ -1,0 +1,16 @@
+# set credentials for service account named "avi"
+kubectl config set-credentials avi --token=$(kubectl get secret avi-token-bhm4l -o jsonpath={.data.token} | base64 -D)
+
+# kubectl get secrets
+kubectl get secrets
+
+# get (and decode) secret by name
+kubectl get secret <secret_name> -o jsonpath={.data.token} | base64 -D
+
+# grant super-user access to all service accounts cluster-wide
+kubectl create clusterrolebinding serviceaccounts-cluster-admin \
+  --clusterrole=cluster-admin \
+    --group=system:serviceaccounts
+
+
+# Service account permissions: https://kubernetes.io/docs/reference/access-authn-authz/rbac/#service-account-permissions
