@@ -15,9 +15,9 @@ image_project="ubuntu-os-cloud"
 gcloud compute \
   --project=avistio-gtm \
   instances create controller \
-  --zone=us-central1-c \
+  --zone=us-central1-a \
   --machine-type=n1-standard-4 \
-  --subnet=ew-subnet \
+  --subnet=default \
   --address=35.193.2.159 \
   --network-tier=PREMIUM \
   --maintenance-policy=MIGRATE \
