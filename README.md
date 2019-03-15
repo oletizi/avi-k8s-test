@@ -14,9 +14,7 @@ front of a Kubernetes cluster.
 5. Run controller host initialization script to prepare for controller installation (see below). Installs python and docker.
 6. Run install controller script (see below). Runs ansible playbook to install controller on controller host.
 7. Run controller initialization script (see below). Runs ansible playbook to configure the controller.
-
-*Optional*
-8. Run reset-controller host script to prior to restarting procedure at step 6 above.
+8. (Optional) Run reset-controller host script to prior to restarting procedure at step 6 above.
 
 ## Contents
 ### ``/ansible``
