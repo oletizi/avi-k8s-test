@@ -20,7 +20,7 @@ front of a Kubernetes cluster.
 ### ``/ansible``
 * ``avi_config.yml``&mdash;ansible file from Ranga for configuring the controller
 * ``avi_creds.yml``&mdash;ansible file from Ranga for setting configuration values; *NOTE: project_name and kube_master_node modified to match test Kubernetes cluster*
-* ``controller.yml``&mdash;ansible file from Ranga for specifying controller details
+* ``controller.yml``&mdash;ansible file for specifying controller details
 * ``hosts.yml``&mdash;ansible hosts file from Ranga, updated with test Kubernetes cluster details
 * ``k8s_cloud_gcp.yaml``&mdash;ansible playbook from Ranga for configuring the controller. *NOTE: password change task
 commented out b/c the default password is unknown. This requires a manual step of initial controller setup via the
