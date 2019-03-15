@@ -21,7 +21,7 @@ cmd="ssh ${controller} sudo apt-get update"
 echo "Executing ${cmd}"
 ${cmd}
 
-cmd="ssh ${controller} sudo apt-get install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common"
+cmd="ssh ${controller} sudo apt-get install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common python"
 echo "Executing ${cmd}"
 ${cmd}
 
