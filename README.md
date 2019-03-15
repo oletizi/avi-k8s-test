@@ -9,7 +9,7 @@ front of a Kubernetes cluster.
 
 1. Manually create a Kubernetes cluster
 2. Create a GCP instance to serve as host for the Avi controller
-3. Manually add publish ssh key to ~/.ssh/authorized_keys
+3. Manually add public ssh key to ~/.ssh/authorized_keys
 4. Manually add entry in /etc/sudoers.d/<username> to allow password-less sudo for ansible tasks
 5. Run controller host initialization script to prepare for controller installation (see below). Installs python and docker.
 6. Run install controller script (see below). Runs ansible playbook to install controller on controller host.
