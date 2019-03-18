@@ -13,4 +13,4 @@ ns_subnet_start: "10.70.119.101"
 ns_subnet_end: "10.70.119.120"
 
 project_name: "avistio-gtm"
-kube_master_node: "35.226.173.104"
+kube_master_node: "35.224.254.66"

@@ -2,9 +2,12 @@
 
 mydir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 root=$( cd "${mydir}/.." && pwd )
+bin=$( cd "${root}/bin" && pwd )
 ansible=$( cd "${root}/ansible" && pwd )
 
-controller=$1
+. ${bin}/config.sh
+
+controller=${CONTROLLER}
 
 if [[ "" == ${controller}  ]]; then
     echo "Please specify controller hostname or IP address."
