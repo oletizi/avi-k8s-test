@@ -1,3 +1,14 @@
+# create cluster with node machine type specified
+gcloud container clusters create microservices-demo --machine-type=n1-standard-2 --num-nodes=3
+
+# configure ssh keys
+gcloud compute config-ssh
+
+# get secret for default service account
+
+kubectl get secret $(kubectl get serviceaccounts default -o jsonpath={.secrets[0].name}) -o jsonpath={.data.token} | base64 -D > ~/kube_service_token
+
+
 # set credentials for service account named "avi"
 kubectl config set-credentials avi --token=$(kubectl get secret avi-token-bhm4l -o jsonpath={.data.token} | base64 -D)
 
@@ -14,3 +25,7 @@ kubectl create clusterrolebinding serviceaccounts-cluster-admin \
 
 
 # Service account permissions: https://kubernetes.io/docs/reference/access-authn-authz/rbac/#service-account-permissions
+
+gcloud container clusters create cli-test
+
+# ansible-galaxy install 18.2.1 versions of avinetworks.avisdk, avinetworks.aviconfig, avinetworks.avicontroller
