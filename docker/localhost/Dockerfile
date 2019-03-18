@@ -12,6 +12,8 @@ RUN apt-get update \
     ansible \
     locales \
     sudo \
+    curl \
+    telnet \
   && adduser --disabled-password ubuntu \
   && locale-gen "en_US.UTF-8"
 
