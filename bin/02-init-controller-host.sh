@@ -1,15 +1,11 @@
 #!/bin/bash
 mydir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 root=$( cd "${mydir}/.." && pwd )
-ansible=$( cd "${root}/ansible" && pwd )
 
-controller=$1
+. ${mydir}/config.sh
+. ${AVI_DEMO_CONFIG}
 
-if [[ "" == ${controller}  ]]; then
-    echo "Please specify controller hostname or IP address."
-    exit 1
-fi
-
+controller=${AVI_DEMO_CONTROLLER_HOSTNAME}
 
 # install Docker CE
 

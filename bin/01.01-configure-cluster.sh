@@ -10,7 +10,7 @@ echo "Fetching token for service account ${AVI_DEMO_SERVICE_ACCOUNT_NAME} and st
 
 kubectl get secret \
   $(kubectl get serviceaccounts ${AVI_DEMO_SERVICE_ACCOUNT_NAME} -o 'jsonpath={.secrets[0].name}') \
-  -o 'jsonpath={.data.token}' | base64 -D > ${AVI_DEMO_SERVICE_TOKEN_FILE}
+  -o 'jsonpath={.data.token}' | base64 -d > ${AVI_DEMO_SERVICE_TOKEN_FILE}
 
 echo "Binding cluster role to all service accounts:"
 echo "  cluster role binding name: ${AVI_DEMO_SERVICE_CLUSTER_ROLE_BINDING_NAME}"

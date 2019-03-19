@@ -6,11 +6,10 @@ root=$( cd "${mydir}/.." && pwd )
 
 # TODO: Add idempotency
 
-if [[ $(/bin/true) ]]; then
 #  --project=avistio-gtm \
 #  --address=35.193.2.159 \
 #  --service-account=316441934044-compute@developer.gserviceaccount.com \
-    cmd="gcloud compute \
+cmd="gcloud compute \
   instances create ${AVI_DEMO_CONTROLLER_INSTANCE_NAME} \
   --zone=${AVI_DEMO_CONTROLLER_INSTANCE_ZONE} \
   --machine-type=${AVI_DEMO_CONTROLLER_INSTANCE_MACHINE_TYPE} \
@@ -24,16 +23,14 @@ if [[ $(/bin/true) ]]; then
   --boot-disk-size=${AVI_DEMO_CONTROLLER_INSTANCE_BOOT_DISK_SIZE} \
   --boot-disk-type=pd-standard \
   --boot-disk-device-name=controller"
-    echo "Creating controller instance. This may take a minute or so..."
-    echo ${cmd}
-    eval ${cmd}
-fi
+echo "Creating controller instance. This may take a minute or so..."
+echo ${cmd}
+eval ${cmd}
 
 ## TODO: Set up appropriate firewall rules for controller
 
-if [[ $(/bin/false) ]]; then
 #       --project=avistio-gtm \
-    cmd="gcloud compute \
+cmd="gcloud compute \
        firewall-rules create avi-allow-http \
        --direction=INGRESS \
        --priority=1000 \
@@ -42,14 +39,11 @@ if [[ $(/bin/false) ]]; then
        --rules=tcp:80 \
        --source-ranges=0.0.0.0/0 \
        --target-tags=http-server"
-    echo "Creating http ingress firewall rule for controller:"
-    echo ${cmd}
-    eval ${cmd}
-fi
+echo "Creating http ingress firewall rule for controller:"
+echo ${cmd}
+eval ${cmd}
 
-if [[ $(/bin/false) ]]; then
-#       --project=avistio-gtm \
-    cmd="gcloud compute \
+cmd="gcloud compute \
        firewall-rules create avi-allow-https \
        --direction=INGRESS \
        --priority=1000 \
@@ -58,7 +52,7 @@ if [[ $(/bin/false) ]]; then
        --rules=tcp:443 \
        --source-ranges=0.0.0.0/0 \
        --target-tags=https-server"
-    echo "Creating https ingress firewall rule for controller:"
-    echo ${cmd}
-    eval ${cmd}
-fi 
+echo "Creating https ingress firewall rule for controller:"
+echo ${cmd}
+eval ${cmd}
+

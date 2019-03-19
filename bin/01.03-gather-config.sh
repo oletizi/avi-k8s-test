@@ -9,7 +9,7 @@ gcloud compute config-ssh
 
 # TODO: Test with a non-static IP
 echo "Fetching Avi controller host IP address..."
-controller_ip=$(gcloud compute instances describe --zone=${AVI_DEMO_CONTROLLER_INSTANCE_ZONE} ${AVI_DEMO_CONTROLLER_INSTANCE_NAME} --format="json" | jq -r '.networkInterfaces[0].accessConfigs[0].natIP')
+controller_ip=$(gcloud compute instances describe --zone=${AVI_DEMO_CONTROLLER_INSTANCE_ZONE} ${AVI_DEMO_CONTROLLER_INSTANCE_NAME} --format=\"json\" | jq -r '.networkInterfaces[0].accessConfigs[0].natIP')
 echo "Avi controller host IP address: ${controller_ip}"
 
 echo "Fetching cluster master IP address..."

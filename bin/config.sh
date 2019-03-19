@@ -25,6 +25,5 @@ export AVI_DEMO_CONTROLLER_INSTANCE_SUBNET="default"
 export AVI_DEMO_CONTROLLER_INSTANCE_MACHINE_TYPE="n1-standard-4"
 export AVI_DEMO_CONTROLLER_INSTANCE_BOOT_DISK_SIZE="80GB"
 
-export MASTER_IP=35.224.254.66
-export CONTROLLER=controller.us-central1-a.avistio-gtm
-export CONTROLLER_IP=35.193.2.159
+# Ansible config
+export AVI_DEMO_ANSIBLE_HOSTS_FILE=/tmp/hosts.yml
