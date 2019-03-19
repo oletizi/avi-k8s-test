@@ -1,6 +1,9 @@
 # create cluster with node machine type specified
 gcloud container clusters create microservices-demo --machine-type=n1-standard-2 --num-nodes=3
 
+# get cluster master ip
+gcloud container clusters describe --format="json" avi-demo | jq -r .endpoint
+
 # configure ssh keys
 gcloud compute config-ssh
 
