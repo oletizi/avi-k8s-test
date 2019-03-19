@@ -15,7 +15,7 @@ RUN apt-get update \
     curl \
     telnet \
     jq \
-  && adduser --disabled-password ubuntu \
+  && adduser --disabled-password --gecos "" ubuntu \
   && locale-gen "en_US.UTF-8"
 
 COPY ubuntu.sudo /etc/sudoers.d/ubuntu
@@ -24,7 +24,8 @@ USER ubuntu
 RUN ansible-galaxy install \
   avinetworks.aviconfig,18.2.1 \
   avinetworks.avicontroller,18.2.1 \
-  avinetworks.avisdk,18.2.1
+  avinetworks.avisdk,18.2.1 \
+  && (cd /home/ubuntu && git clone https://github.com/avinetworks/devops.git)
 
 CMD sleep infinity
 

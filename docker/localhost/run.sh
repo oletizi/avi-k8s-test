@@ -2,9 +2,10 @@
 
 mydir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 root=$( cd "${mydir}/../../" && pwd)
+bin=$( cd "${root}/bin" && pwd )
 
-cd ${mydir}
-. config.sh 
+. ${mydir}/config.sh
+
 docker pull ${localhost_image} 
 
 if [[ "" != $(docker ps | grep ${localhost_container}) ]]; then
