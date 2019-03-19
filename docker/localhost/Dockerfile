@@ -14,6 +14,7 @@ RUN apt-get update \
     sudo \
     curl \
     telnet \
+    jq \
   && adduser --disabled-password ubuntu \
   && locale-gen "en_US.UTF-8"
 
