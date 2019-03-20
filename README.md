@@ -87,7 +87,7 @@ hostname into a temporary configuration file: ``/home/ubuntu/.avi-demo-config``
     ``/home/ubuntu/avi-k8s-test/bin/08-config-controller.sh <default admin password>``
     
    ***NOTE:** This **still** doesn't work properly. Now that this process is relatively foolproof and the configuration
-   is stable, please fork this repo and add the magic words so this step will work. Thanks in advance.*
+   is stable, please fork this repo and make pull requests to add the magic words so this step will work. Thanks in advance.*
    
 1. Tear down all of the resources created in this tutorial:
 
