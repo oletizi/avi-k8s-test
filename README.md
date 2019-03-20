@@ -32,7 +32,7 @@ in the configuration container.
 
 1. Start and login to the configuration container: 
   
-    ``bin/00-start-config-container.sh`` 
+    ``/home/ubuntu/avi-k8s-test/bin/00-start-config-container.sh`` 
 
 1. From the configuration container, install and configure the gcloud CLI:
   
