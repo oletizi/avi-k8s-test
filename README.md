@@ -15,6 +15,12 @@ A tutorial kit to test running an Avi Vantage Controller in front of a Kuberetes
 
 ## Procedure Overview
 
+**IMPORTANT:** DO NOT FORGET TO RUN THE CLEANUP SCRIPT AFTER WORKING THROUGH THIS TUTORIAL.
+
+Some of the resources created in this tutorial are large and could be expensive if left running.
+
+--- 
+
 All of the configuration and deployment will be done inside an Ubuntu docker container with all the necessary
 packages installed. 
 
@@ -82,3 +88,9 @@ hostname into a temporary configuration file: ``/home/ubuntu/.avi-demo-config``
     
    ***NOTE:** This **stil** doesn't work properly. Now that this process is relatively foolproof and the configuration
    is stable, please fork this repo and add the magic words so this step will work. Thanks in advance.*
+   
+1. Tear down all of the resources created in this tutorial:
+
+    ``/home/ubuntu/avi-k8s-test/bin/100-cleanup.sh``
+    
+   *TODO: Remove all firewall rules.*
