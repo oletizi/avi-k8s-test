@@ -11,15 +11,15 @@ docker pull ${localhost_image}
 if [[ "" != $(docker ps | grep ${localhost_container}) ]]; then
     cmd="docker kill ${localhost_container}"
     echo "Killing running container: ${cmd}"
-    exec ${cmd}
+    ${cmd}
 fi
 
 if [[ "" != $(docker ps -a | grep ${localhost_container}) ]]; then    
     cmd="docker rm ${localhost_container}"
     echo "Removing stopped container: ${cmd}"
-    exec ${cmd}
+    ${cmd}
 fi
 
 cmd="docker run -d -v ${root}:/home/ubuntu/avi-k8s-test --name ${localhost_container} ${localhost_image}"
 echo "Running container: ${cmd}"
-exec ${cmd}
+${cmd}

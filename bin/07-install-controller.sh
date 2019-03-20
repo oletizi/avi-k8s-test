@@ -22,6 +22,6 @@ EOF
 echo "Ansible hosts file contents:"
 cat ${tmp_hosts}
 
-cmd="ansible-playbook -i ${tmp_hosts} ${ansible}/controller.yml"
+cmd="ansible-playbook -i ${tmp_hosts} ${ansible}/controller_install.yml"
 echo "Executing ansible-playbook to install the Avi controller: ${cmd}"
 ${cmd}

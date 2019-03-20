@@ -4,7 +4,7 @@ root=$( cd "${mydir}/.." && pwd )
 
 . ${mydir}/config.sh
 
-echo "Cleaning up..."
+echo "Cleaning up. This may take a few minutes..."
 
 if [[ "" != $(gcloud container clusters list | grep ${AVI_DEMO_CLUSTER_NAME}) ]]; then
     echo "Deleting cluster ${AVI_DEMO_CLUSTER_NAME}..."

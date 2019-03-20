@@ -2,39 +2,83 @@
 
 ## Description
 
-A collection of ansible configuration files and bash scripts used to test setting up Avi Vantage for use in
-front of a Kubernetes cluster.
+A tutorial kit to test running an Avi Vantage Controller in front of a Kuberetes cluster.
 
-## Procedure
+## Purpose
 
-### Prepare an Ansible configuration host
+*TODO* 
+
+## Requirements
+* A host capable of running a small Ubuntu docker image
+* A Google Cloud Platform account with the ability to instantiate Google Compute Engine instances and create Google 
+  Kubernetes Engine clusters
+
+## Procedure Overview
+
+All of the configuration and deployment will be done inside an Ubuntu docker container with all the necessary
+packages installed. 
+
+This project directory is mounted inside the container at /home/ubuntu/avi-k8s-test; should you
+with to make changes to scripts or configuration, you may do so from the docker host machine and they will also appear
+in the configuration container. 
+
 1. Install docker
 
-1. Start the configuration container: 
+1. Start and login to the configuration container: 
   
-    ``docker/localhost/run.sh`` 
+    ``bin/00-start-config-container.sh`` 
 
-1. Log into the configuration container: 
+1. From the configuration container, install and configure the gcloud CLI:
   
-    ``docker exec -it avi-k8s-test-localhost bash``
-
-1. From the configuration container, install the gcloud CLI:
-  
-    ``/home/ubuntu/avi-k8s-test/bin/00-install-gcloud.sh``
+    ``/home/ubuntu/avi-k8s-test/bin/01-install-gcloud.sh``
 
    Follow the directions to login to your gcloud account and set your default project and zone
 
 1. From the configuration container, create the test Kubernetes cluster:
   
-    ``/home/ubuntu/avi-k8s-test/bin/gke/02-config-cluster.sh``
+    ``/home/ubuntu/avi-k8s-test/bin/02-create-cluster.sh``
 
-1. Create a Google compute instance to serve as host for the Avi controller:
+  This may take a minute or so.
+
+1. Once the Kubernetes cluster is created, configure the cluster:
+
+    ``/home/ubuntu/avi-k8s-test/bin/03-configure-cluster.sh``
+   
+   This applies appropriate permissions to the cluster's default service account and stores the service account's
+   credential token in a local file for use by Ansible.
+
+1. Create a Google Compute Engine instance to serve as host for the Avi controller:
   
-    ``/home/ubuntu/avi-k8s-test/bin/01-create-controller-host-gcp.sh``
+    ``/home/ubuntu/avi-k8s-test/bin/04-create-controller-host.sh``
+    
+   This may take a minute or so.
+   
+1. Gather the Kubernetes cluster master endpoint IP address, the Avi Controller IP address, and the Avi Controller
+hostname into a temporary configuration file: ``/home/ubuntu/.avi-demo-config``  
 
-1. Update ssh config to enable login to controller host:
-4. Manually add entry in /etc/sudoers.d/<username> to allow password-less sudo for ansible tasks
-5. Run controller host initialization script to prepare for controller installation (see below). Installs python and docker.
-6. Run install controller script (see below). Runs ansible playbook to install controller on controller host.
-7. Run controller initialization script (see below). Runs ansible playbook to configure the controller.
-8. (Optional) Run reset-controller host script to prior to restarting procedure at step 6 above.
+    ``/home/ubuntu/avi-k8s-test/bin/05-gather-config.sh``
+    
+1. Test the Kubernetes cluster service account token:
+
+    ``/home/ubuntu/avi-k8s-test/bin/test-service-token.sh``
+    
+    *TODO: rename this script so it sorts properly*
+    
+1. Prepare the Avi Controller host for installation:
+
+    ``/home/ubuntu/avi-k8s-test/bin/06-config-controller-host.sh``
+
+1. Install the Avi Controller on the Controller host:
+
+    ``/home/ubuntu/avi-k8s-test/bin/07-install-controller.sh``
+    
+   This may take a minute or so while the Controller docker image is pulled onto the host.
+   
+   *TODO: add support for waiting until the controller is ready before moving on to the next step.* 
+
+1. Configure the Avi Controller to work with the Kubernetes cluster:
+
+    ``/home/ubuntu/avi-k8s-test/bin/08-config-controller.sh <default admin password>``
+    
+   ***NOTE:** This **stil** doesn't work properly. Now that this process is relatively foolproof and the configuration
+   is stable, please fork this repo and add the magic words so this step will work. Thanks in advance.*
