@@ -25,7 +25,7 @@ All of the configuration and deployment will be done inside an Ubuntu docker con
 packages installed. 
 
 This project directory is mounted inside the container at /home/ubuntu/avi-k8s-test; should you
-with to make changes to scripts or configuration, you may do so from the docker host machine and they will also appear
+wish to make changes to scripts or configuration, you may do so from the docker host machine and they will also appear
 in the configuration container. 
 
 1. Install docker
@@ -86,7 +86,7 @@ hostname into a temporary configuration file: ``/home/ubuntu/.avi-demo-config``
 
     ``/home/ubuntu/avi-k8s-test/bin/08-config-controller.sh <default admin password>``
     
-   ***NOTE:** This **stil** doesn't work properly. Now that this process is relatively foolproof and the configuration
+   ***NOTE:** This **still** doesn't work properly. Now that this process is relatively foolproof and the configuration
    is stable, please fork this repo and add the magic words so this step will work. Thanks in advance.*
    
 1. Tear down all of the resources created in this tutorial:
