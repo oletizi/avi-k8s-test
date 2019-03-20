@@ -44,7 +44,7 @@ in the configuration container.
   
     ``/home/ubuntu/avi-k8s-test/bin/02-create-cluster.sh``
 
-  This may take a minute or so.
+    This may take a minute or so.
 
 1. Once the Kubernetes cluster is created, configure the cluster:
 
