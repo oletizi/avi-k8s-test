@@ -1,31 +1,28 @@
-FROM ubuntu:xenial
+#FROM ubuntu:xenial
+FROM alpine:3.9
 
-RUN apt-get update \
-  && apt-get install -y software-properties-common \
-  && apt-add-repository -y ppa:ansible/ansible \
-  && apt-get update \
-  && apt-get upgrade -y \
-  && apt-get install -y \
+RUN apk update \
+  && apk add \
+    bash \
     git \
+    vim \
     emacs \
     python \
     ansible \
-    locales \
     sudo \
     curl \
-    telnet \
+    busybox-extras \
     jq \
-  && adduser --disabled-password --gecos "" ubuntu \
-  && locale-gen "en_US.UTF-8"
+  && adduser --disabled-password --gecos "" avi
 
-COPY ubuntu.sudo /etc/sudoers.d/ubuntu
-USER ubuntu
+COPY avi.sudo /etc/sudoers.d/avi
+USER avi
 
 RUN ansible-galaxy install \
   avinetworks.aviconfig,18.2.1 \
   avinetworks.avicontroller,18.2.1 \
   avinetworks.avisdk,18.2.1 \
-  && (cd /home/ubuntu && git clone https://github.com/avinetworks/devops.git)
+  && (cd ${HOME} && git clone https://github.com/avinetworks/devops.git)
 
-CMD sleep infinity
+CMD tail -f /dev/null
 
