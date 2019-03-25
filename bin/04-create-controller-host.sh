@@ -4,11 +4,10 @@ root=$( cd "${mydir}/.." && pwd )
 
 . ${mydir}/config.sh
 
+network=default
+
 # TODO: Add idempotency
 
-#  --project=avistio-gtm \
-#  --address=35.193.2.159 \
-#  --service-account=316441934044-compute@developer.gserviceaccount.com \
 cmd="gcloud compute \
   instances create ${AVI_DEMO_CONTROLLER_INSTANCE_NAME} \
   --zone=${AVI_DEMO_CONTROLLER_INSTANCE_ZONE} \
@@ -29,12 +28,11 @@ eval ${cmd}
 
 ## TODO: Set up appropriate firewall rules for controller
 
-#       --project=avistio-gtm \
 cmd="gcloud compute \
        firewall-rules create avi-allow-http \
        --direction=INGRESS \
        --priority=1000 \
-       --network=avi \
+       --network=${network} \
        --action=ALLOW \
        --rules=tcp:80 \
        --source-ranges=0.0.0.0/0 \
@@ -47,7 +45,7 @@ cmd="gcloud compute \
        firewall-rules create avi-allow-https \
        --direction=INGRESS \
        --priority=1000 \
-       --network=avi \
+       --network=${network} \
        --action=ALLOW \
        --rules=tcp:443 \
        --source-ranges=0.0.0.0/0 \
