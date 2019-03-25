@@ -12,9 +12,9 @@ RUN apk update \
     curl \
     busybox-extras \
     jq \
-  && cd /tmp/ \
+  && cd /usr/local/ \
   && curl https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-239.0.0-linux-x86_64.tar.gz | tar xfvz - \
-  && /tmp/google-cloud-sdk/install.sh \
+  && /usr/local/google-cloud-sdk/install.sh \
   && rm -rf /tmp/google-cloud-sdk \
   && adduser --disabled-password --gecos "" avi
 
