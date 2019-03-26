@@ -1,3 +1,12 @@
+
+=> Add a note about quotas
+=> Add check for quotas
+
+
+
+
+
+
 # create cluster with node machine type specified
 gcloud container clusters create microservices-demo --machine-type=n1-standard-2 --num-nodes=3
 
