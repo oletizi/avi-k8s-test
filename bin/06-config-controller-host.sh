@@ -1,4 +1,9 @@
 #!/bin/bash
+#
+# XXX: TODO:
+# - Remove the redundancy
+# - add error checking
+#
 mydir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 root=$( cd "${mydir}/.." && pwd )
 
@@ -6,6 +11,7 @@ root=$( cd "${mydir}/.." && pwd )
 . ${AVI_DEMO_CONFIG}
 
 controller=${AVI_DEMO_CONTROLLER_HOSTNAME}
+setup_dir="/opt/avi/controller/data"
 
 # install Docker CE
 
@@ -37,3 +43,14 @@ cmd="ssh ${controller} sudo apt-get install -y docker-ce docker-ce-cli container
 echo "Executing ${cmd}"
 ${cmd}
 
+cmd="ssh ${controller} sudo mkdir -p ${setup_dir}"
+echo "Executing ${cmd}"
+${cmd}
+
+cmd="scp ${root}/controller/setup.json ${controller}:/tmp/setup.json"
+echo "Executing ${cmd}"
+${cmd}
+
+cmd="ssh ${controller} sudo mv /tmp/setup.json ${setup_dir}"
+echo "Executing ${cmd}"
+${cmd}
