@@ -1,5 +1,7 @@
 FROM alpine:3.9
 
+ARG ansible_playbook_version
+
 RUN apk update \
   && apk add \
     bash \
@@ -23,15 +25,18 @@ RUN apk update \
   && adduser --disabled-password --gecos "" avi
 
 COPY avi.sudo /etc/sudoers.d/avi
+COPY motd /etc/motd
 USER avi
 
-RUN echo 'export PATH=${PATH}:/usr/local/google-cloud-sdk/bin' >> ${HOME}/.bashrc \
+RUN ssh-keygen -t rsa -N "" \
+  && echo 'export PATH=${PATH}:/usr/local/google-cloud-sdk/bin' >> ${HOME}/.bashrc \
   && echo 'export PS1="\u@\h:\w$ "' >> ${HOME}/.bashrc \
   && echo 'cd ${HOME}' >> ${HOME}/.bashrc \
+  && echo 'cat /etc/motd' >> ${HOME}/.bashrc \
   && ansible-galaxy install \
-  avinetworks.aviconfig,18.2.2 \
-  avinetworks.avisdk,18.2.2 \
-  avinetworks.avicontroller,18.2.1 \
+  avinetworks.aviconfig,${ansible_playbook_version} \
+  avinetworks.avisdk,${ansible_playbook_version} \
+  avinetworks.avicontroller,${ansible_playbook_version} \
   && (cd ${HOME} && git clone https://github.com/avinetworks/devops.git)
 
 CMD tail -f /dev/null

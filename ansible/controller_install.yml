@@ -1,9 +1,10 @@
+# TODO: parameterize the controller version and declare it in a central configuration
 - hosts: controllers
   roles:
   - role: avinetworks.avicontroller
     become: true
     ansible_memtotal_mb: 13000
-    con_version: 18.2.2-9224-20190306.090737
+    con_version: 18.2.1-9010-20181220.082642 
     con_cores: 4
     con_disk_gb: 32
     con_max_cores: 8

@@ -11,7 +11,7 @@ root=$( cd "${mydir}/.." && pwd )
 . ${AVI_DEMO_CONFIG}
 
 controller=${AVI_DEMO_CONTROLLER_HOSTNAME}
-setup_dir="/opt/avi/controller/data"
+setup_dir="/opt/avi/controller/data/"
 
 # install Docker CE
 
