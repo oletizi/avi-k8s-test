@@ -1,0 +1,47 @@
+{
+  "SystemConfiguration": [
+    {
+      "email_configuration": {
+        "mail_server_name": "localhost",
+        "disable_tls": false,
+        "mail_server_port": 25,
+        "smtp_type": "SMTP_LOCAL_HOST",
+        "from_email": "admin@avicontroller.net"
+      },
+      "global_tenant_config": {
+        "se_in_provider_context": true,
+        "tenant_access_to_provider_se": true,
+        "tenant_vrf": false
+      },
+      "portal_configuration": {
+        "https_port": 9443,
+        "http_port": 9080
+      }
+    }
+  ],
+  "InitialConfiguration": [
+    {
+      "user_initial_setup": false
+    }
+  ],
+  "User": [
+    {
+      "username": "admin",
+      "name": "admin",
+      "access": [
+        {
+          "tenant_ref": "/api/tenant/?name=admin",
+          "all_tenants": false,
+          "role_ref": "/api/role/?tenant=admin&name=System-Admin"
+        }
+      ],
+      "is_superuser": true,
+      "full_name": "System Administrator",
+      "unix_crypt_password": "$6$Szb6qVw1$Jhee6jZ94HsIfNZyk35t5hAjNZL33kjeVnHyN4Yya9FLOr8NtaaHv5rknk3iD48.PzbmlQ/RgofEGFXUe7c2t0",
+      "password": "pbkdf2_sha256$100000$tf0ukXIaWUN8$CLdOI/0pvhh19vOakQmEpHLeEDoaBotwPx9dmLxXAtQ=",
+      "local": true,
+      "email": "",
+      "default_tenant_ref": "/api/tenant/?name=admin"
+    }
+  ]
+}
