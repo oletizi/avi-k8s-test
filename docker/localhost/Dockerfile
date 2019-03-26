@@ -28,7 +28,7 @@ COPY avi.sudo /etc/sudoers.d/avi
 COPY motd /etc/motd
 USER avi
 
-RUN ssh-keygen -t rsa -N "" \
+RUN ssh-keygen -t rsa -N "" -f ${HOME}/.ssh/id_rsa\
   && echo 'export PATH=${PATH}:/usr/local/google-cloud-sdk/bin' >> ${HOME}/.bashrc \
   && echo 'export PS1="\u@\h:\w$ "' >> ${HOME}/.bashrc \
   && echo 'cd ${HOME}' >> ${HOME}/.bashrc \
