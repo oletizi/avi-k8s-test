@@ -3,7 +3,7 @@
   - role: avinetworks.avicontroller
     become: true
     ansible_memtotal_mb: 13000
-    con_version: 18.1.2-9058-20180623.025526
+    con_version: 18.2.2-9224-20190306.090737
     con_cores: 4
     con_disk_gb: 32
     con_max_cores: 8

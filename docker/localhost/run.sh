@@ -20,6 +20,6 @@ if [[ "" != $(docker ps -a | grep ${localhost_container}) ]]; then
     ${cmd}
 fi
 
-cmd="docker run -d -v ${root}:/home/avi/avi-k8s-test --name ${localhost_container} ${localhost_image}"
+cmd="docker run -h ${localhost_hostname} -d -v ${root}:/home/avi/avi-k8s-test --name ${localhost_container} ${localhost_image}"
 echo "Running container: ${cmd}"
 ${cmd} > ${HOME}/${localhost_container}.log 2>&1

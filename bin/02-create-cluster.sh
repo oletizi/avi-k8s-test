@@ -10,7 +10,7 @@ echo "If you haven't done so, please visit the Google Cloud Console:"
 echo
 echo "   https://console.cloud.google.com/projectselector/kubernetes"
 echo
-read  -n 1 -p "Is Google Kubernetes Engine enabled for this project? [y|N]: " input
+read  -p "Is Google Kubernetes Engine enabled for this project? [y|N]: " input
 echo
 if [[ ${input} != "y" ]]; then
     echo "We can't proceed until Google Kubernetes Engine is enabled. Please resume the tutorial after you've done so."
