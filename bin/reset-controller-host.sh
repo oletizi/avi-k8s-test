@@ -6,8 +6,9 @@ bin=$( cd "${root}/bin" && pwd )
 ansible=$( cd "${root}/ansible" && pwd )
 
 . ${bin}/config.sh
+. ${AVI_DEMO_CONFIG}
 
-controller=${CONTROLLER}
+controller=${AVI_DEMO_CONTROLLER_HOSTNAME}
 
 if [[ "" == ${controller}  ]]; then
     echo "Please specify controller hostname or IP address."
