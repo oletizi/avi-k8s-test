@@ -30,6 +30,7 @@ USER avi
 
 RUN ssh-keygen -t rsa -N "" -f ${HOME}/.ssh/id_rsa\
   && echo 'export PATH=${PATH}:/usr/local/google-cloud-sdk/bin' >> ${HOME}/.bashrc \
+  && echo 'export PYTHONPATH=${PYTHONPATH}:/usr/lib/python2.7/site-packages' >> ${HOME}/.bashrc \
   && echo 'export PS1="\u@\h:\w$ "' >> ${HOME}/.bashrc \
   && echo 'cd ${HOME}' >> ${HOME}/.bashrc \
   && echo 'cat /etc/motd' >> ${HOME}/.bashrc \

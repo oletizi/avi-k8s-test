@@ -14,8 +14,8 @@
         "tenant_vrf": false
       },
       "portal_configuration": {
-        "https_port": 9443,
-        "http_port": 9080
+        "https_port": 443,
+        "http_port": 80
       }
     }
   ],

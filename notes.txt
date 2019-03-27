@@ -1,4 +1,49 @@
+TODO
 
+# 04-create-controller-host.sh
+
+* Check for existence of firewall rules before attempting to create
+  them to avoid these errors (only happens when running the tutorial
+  multiple times in the same GCP project):
+
+ERROR: (gcloud.compute.firewall-rules.create) Could not fetch resource:
+ - The resource 'projects/avi-k8s-tutorial/global/firewalls/avi-allow-http' already exists
+
+Creating https ingress firewall rule for controller:
+gcloud compute firewall-rules create avi-allow-https --direction=INGRESS --priority=1000 --network=default --action=ALLOW --rules=tcp:443 --source-ranges=0.0.0.0/0 --target-tags=https-server
+ERROR: (gcloud.compute.firewall-rules.create) Could not fetch resource:
+ - The resource 'projects/avi-k8s-tutorial/global/firewalls/avi-allow-https' already exists
+
+# 05-gather-config.sh
+
+* See if there's a way to make the gcloud ssh config quieter (not ask
+  for a passphrase)
+
+* Add a the test-service-token.sh as the next step
+
+# 06-config-controller-host.sh
+
+# 07-install-controller.sh
+* had to comment out the conditional check to make this error go away:
+
+RUNNING HANDLER [avinetworks.avicontroller : Avi Controller | Services | systemd | Daemon reload] ***
+fatal: [avi-tutorial-controller.us-central1-a.avi-k8s-tutorial]: FAILED! => {"msg": "The conditional check 'ansible_version is version_compare('2.2', '>=')' failed. The error was: Version comparison: '<' not supported between instances of 'str' and 'int'\n\nThe error appears to have been in '/home/avi/.ansible/roles/avinetworks.avicontroller/handlers/main.yml': line 3, column 3, but may\nbe elsewhere in the file depending on the exact syntax problem.\n\nThe offending line appears to be:\n\n# handlers for avinetworks.avicontroller\n- name: Avi Controller | Services | systemd | Daemon reload\n  ^ here\n"}
+
+* setup.json import failed message on controller login screen
+
+  Found this:
+
+  	Failure:"Cannot change HTTP/HTTPS port in Containerized Environment"
+
+  Changed setup.json to use default HTTP/HTTPS  ports and the error went away
+
+* avisdk python package isn't found by ansible. Added to PYTHONPATH:
+
+	/usr/lib/python2.7/site-packages
+
+  and the missing function error went away
+  
+## Misc:
 => Add a note about quotas
 => Add check for quotas
 
@@ -6,7 +51,7 @@
 
 
 
-
+_____________________
 # create cluster with node machine type specified
 gcloud container clusters create microservices-demo --machine-type=n1-standard-2 --num-nodes=3
 

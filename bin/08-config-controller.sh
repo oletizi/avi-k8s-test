@@ -10,9 +10,8 @@ ansible=$( cd "${root}/ansible" && pwd )
 default_avi_password=$1
 
 playbook=${HOME}/devops/ansible/gcp/controller_kcloud.yaml
-#playbook=${ansible}/k8s_cloud_gcp.yaml
+#playbook=${ansible}/controller_kcloud.yaml
 
-# TODO: Figure out password stuff
-cmd="ansible-playbook -i ${AVI_DEMO_ANSIBLE_HOSTS_FILE}  ${playbook} -vvv -e \"password=CoolNewPassword1 controller_ip=${AVI_DEMO_CONTROLLER_IP} avi_config_state=present default_avi_password=${default_avi_password}\""
+cmd="ansible-playbook -i ${AVI_DEMO_ANSIBLE_HOSTS_FILE}  ${playbook} -vvv -e \"password=1CoolNewPassword controller_ip=${AVI_DEMO_CONTROLLER_IP} avi_config_state=present default_avi_password=${default_avi_password} kube_master_node=${AVI_DEMO_MASTER_IP} project_name=${AVI_DEMO_PROJECT_NAME}\""
 echo "Executing ${cmd}"
 eval ${cmd}

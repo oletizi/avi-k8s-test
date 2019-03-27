@@ -16,11 +16,15 @@ echo "Fetching cluster master IP address..."
 master_ip=$(gcloud container clusters describe --zone=${AVI_DEMO_CLUSTER_ZONE} --format="json" ${AVI_DEMO_CLUSTER_NAME} | jq -r .endpoint)
 echo "Cluster master IP address: ${master_ip}"
 
+echo "Fetching current project name..."
+project_name=$(gcloud config list --format 'value(core.project)' 2>/dev/null)
+echo "Current project name: ${project_name}"
+
 # Write transient config to configuration file
 echo "Writing transient configuration to config file: ${AVI_DEMO_CONFIG}..."
 echo "export AVI_DEMO_MASTER_IP=${master_ip}" > ${AVI_DEMO_CONFIG}
 echo "export AVI_DEMO_CONTROLLER_IP=${controller_ip}" >> ${AVI_DEMO_CONFIG}
-#ssh controller.us-central1-a.avistio-gtm
 echo "export AVI_DEMO_CONTROLLER_HOSTNAME=${AVI_DEMO_CONTROLLER_INSTANCE_NAME}.${AVI_DEMO_CONTROLLER_INSTANCE_ZONE}.${AVI_DEMO_PROJECT}" >> ${AVI_DEMO_CONFIG}
+echo "export AVI_DEMO_PROJECT_NAME=${project_name}" >> ${AVI_DEMO_CONFIG}
 echo "Config file contents:"
 cat ${AVI_DEMO_CONFIG}
