@@ -42,7 +42,12 @@ fatal: [avi-tutorial-controller.us-central1-a.avi-k8s-tutorial]: FAILED! => {"ms
 	/usr/lib/python2.7/site-packages
 
   and the missing function error went away
-  
+
+# 08-config-controller.sh
+
+* generate the default password on the fly and bake it into the
+  setup.json file that gets mounted in the controller container
+
 ## Misc:
 => Add a note about quotas
 => Add check for quotas
