@@ -1,6 +1,8 @@
 FROM alpine:3.9
 
-ARG ansible_playbook_version
+ARG avisdk_role_version
+ARG aviconfig_role_version
+ARG avicontroller_role_version
 
 RUN apk update \
   && apk add \
@@ -35,9 +37,9 @@ RUN ssh-keygen -t rsa -N "" -f ${HOME}/.ssh/id_rsa\
   && echo 'cd ${HOME}' >> ${HOME}/.bashrc \
   && echo 'cat /etc/motd' >> ${HOME}/.bashrc \
   && ansible-galaxy install \
-  avinetworks.aviconfig,${ansible_playbook_version} \
-  avinetworks.avisdk,${ansible_playbook_version} \
-  avinetworks.avicontroller,${ansible_playbook_version} \
+  avinetworks.aviconfig,${aviconfig_role_version} \
+  avinetworks.avisdk,${avisdk_role_version} \
+  avinetworks.avicontroller,${avicontroller_role_version} \
   && (cd ${HOME} && git clone https://github.com/avinetworks/devops.git)
 
 CMD tail -f /dev/null

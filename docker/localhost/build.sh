@@ -6,7 +6,9 @@ bin=$( cd "${root}/bin" && pwd )
 
 . "${bin}/config.sh"
 . "${mydir}/config.sh"
-build_cmd="docker build --build-arg ansible_playbook_version=${AVI_DEMO_ANSIBLE_PLAYBOOK_VERSION} -f ./Dockerfile -t ${localhost_image} ."
+
+# XXX: Using build args isn't the most elegant solution to passing these values
+build_cmd="docker build --build-arg avisdk_role_version=${AVI_DEMO_AVISDK_ROLE_VERSION} --build-arg aviconfig_role_version=${AVI_DEMO_AVICONFIG_ROLE_VERSION} --build-arg avicontroller_role_version=${AVI_DEMO_AVICONTROLLER_ROLE_VERSION}  -f ./Dockerfile -t ${localhost_image} ."
 
 echo "Building ${localhost_image} with build command:"
 echo
