@@ -63,6 +63,7 @@ in the configuration container.
    * Check for existence of firewall rules before attempting to create
      them to avoid these errors (only happens when running the tutorial
      multiple times in the same GCP project):
+   * GCE complains that the controller instance is underpowered; may need to change controller instance
    
 1. Gather the Kubernetes cluster master endpoint IP address, the Avi Controller IP address, and the Avi Controller
 hostname into a temporary configuration file: ``/home/ubuntu/.avi-demo-config``  

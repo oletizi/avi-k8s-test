@@ -10,6 +10,17 @@ ansible=$( cd "${root}/ansible" && pwd )
 tmp_hosts=${AVI_DEMO_ANSIBLE_HOSTS_FILE}
 cp ${ansible}/hosts.yml ${tmp_hosts}
 
+# Patch the controller installation role to remove borken version check
+# TODO: Remove this when the bug is fixed
+check_file="${HOME}/.__ANSIBLE_ROLE_PATCHED"
+if [[ ! -f ${check_file} ]]; then
+  echo "Patching avicontroller role..."
+  sed -i 's/when: ansible_version/#when: ansible_version/' ${HOME}/.ansible/roles/avinetworks.avicontroller/handlers/main.yml
+  touch ${check_file}
+else
+  echo "Avicontroller role is already patched."
+fi
+
 # write transient host config to temporary hosts file
 tee ${tmp_hosts} <<EOF
 [bm]

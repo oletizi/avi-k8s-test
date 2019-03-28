@@ -27,7 +27,7 @@ echo "Current project name: ${project_name}"
 # XXX: This could be prettier
 echo "Writing transient configuration to config file: ${AVI_DEMO_CONFIG}..."
 echo "export AVI_DEMO_MASTER_IP=${master_ip}" > ${AVI_DEMO_CONFIG}
-echo "export AVI_DEMO_CONTROLLER_PASSWORD='${passwd}'" >> ${AVI_DEMO_CONFIG}
+echo "export AVI_DEMO_CONTROLLER_PASSWORD='${password}'" >> ${AVI_DEMO_CONFIG}
 echo "export AVI_DEMO_CONTROLLER_IP=${controller_ip}" >> ${AVI_DEMO_CONFIG}
 echo "export AVI_DEMO_CONTROLLER_HOSTNAME=${AVI_DEMO_CONTROLLER_INSTANCE_NAME}.${AVI_DEMO_CONTROLLER_INSTANCE_ZONE}.${AVI_DEMO_PROJECT}" >> ${AVI_DEMO_CONFIG}
 echo "export AVI_DEMO_PROJECT_NAME=${project_name}" >> ${AVI_DEMO_CONFIG}
