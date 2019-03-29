@@ -6,7 +6,7 @@ bin=$( cd "${root}/bin" && pwd )
 
 . ${mydir}/config.sh
 
-docker pull ${localhost_image} 
+#docker pull ${localhost_image} 
 
 if [[ "" != $(docker ps | grep ${localhost_container}) ]]; then
     cmd="docker kill ${localhost_container}"

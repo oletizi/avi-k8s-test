@@ -12,6 +12,7 @@ cp ${ansible}/hosts.yml ${tmp_hosts}
 
 # Patch the controller installation role to remove borken version check
 # TODO: Remove this when the bug is fixed
+
 check_file="${HOME}/.__ANSIBLE_ROLE_PATCHED"
 if [[ ! -f ${check_file} ]]; then
   echo "Patching avicontroller role..."

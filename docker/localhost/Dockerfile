@@ -11,14 +11,16 @@ RUN apk update \
     vim \
     emacs \
     openssh \
-    python \
-    py-pip \
+    python3 \
+    py3-pip \
     ansible \
     sudo \
     curl \
     busybox-extras \
     jq \
-  && pip install avisdk \
+  && ln -s /usr/bin/python3 /usr/bin/python \
+  && ln -s /usr/bin/pip3 /usr/bin/pip \
+  && pip3 install avisdk \
   && cd /usr/local/ \
   && curl https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-239.0.0-linux-x86_64.tar.gz | tar xfvz - \
   && /usr/local/google-cloud-sdk/install.sh \
@@ -32,7 +34,7 @@ USER avi
 
 RUN ssh-keygen -t rsa -N "" -f ${HOME}/.ssh/id_rsa\
   && echo 'export PATH=${PATH}:/usr/local/google-cloud-sdk/bin' >> ${HOME}/.bashrc \
-  && echo 'export PYTHONPATH=${PYTHONPATH}:/usr/lib/python2.7/site-packages' >> ${HOME}/.bashrc \
+#  && echo 'export PYTHONPATH=${PYTHONPATH}:/usr/lib/python2.7/site-packages' >> ${HOME}/.bashrc \
   && echo 'export PS1="\u@\h:\w$ "' >> ${HOME}/.bashrc \
   && echo 'cd ${HOME}' >> ${HOME}/.bashrc \
   && echo 'cat /etc/motd' >> ${HOME}/.bashrc \
