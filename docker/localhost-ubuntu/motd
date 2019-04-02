@@ -1,0 +1,10 @@
+Welcome to the Avi Networks tutorial.
+
+TODO:
+- Explain what this environment is and what to do next
+- Parameterize the name of the tutorial directory, etc. to avoid name skew
+
+Next step, configure the gcloud CLI for your Google Cloud Platform account:
+
+     ./avi-k8s-test/bin/01-install-gcloud.sh
+
