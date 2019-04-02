@@ -4,7 +4,8 @@ ARG avisdk_role_version
 ARG aviconfig_role_version
 ARG avicontroller_role_version
 
-RUN apt-get update \
+RUN sed -r -i -e 's/http:\/\/archive/mirror:\/\/mirrors/' -e 's/mirror:(.*?)\/ubuntu\//mirror:\1\/mirrors.txt/' /etc/apt/sources.list \
+    && apt-get update \
     && apt-get upgrade -y \
     && apt-get install -y \
        bash \
@@ -32,14 +33,13 @@ RUN apt-get update \
   && /usr/local/google-cloud-sdk/install.sh \
   && /usr/local/google-cloud-sdk/bin/gcloud components install kubectl \
   && rm -rf /tmp/google-cloud-sdk \
-  && apt-get remove \
-     gcc \
-     make \
-     python3-dev \
-     musl-dev \
-     libffi-dev \
-#     openssl-dev \
-  && apt-get autoremove \
+#  && apt-get remove -y \
+#     gcc \
+#     make \
+#     python3-dev \
+#     musl-dev \
+#     libffi-dev \
+#  && apt-get autoremove \
   && adduser --disabled-password --gecos "" avi
 
 COPY avi.sudo /etc/sudoers.d/avi
