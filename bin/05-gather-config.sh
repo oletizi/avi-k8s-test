@@ -5,7 +5,7 @@ root=$( cd "${mydir}/.." && pwd )
 . ${mydir}/config.sh
 
 # gather ssh keys for gcloud compute resources and add them to ssh config
-gcloud compute config-ssh
+gcloud --quiet compute config-ssh
 
 # Generate a password to use for the controller
 password=$(< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-32};echo;)

@@ -26,7 +26,7 @@ echo "  zone        : ${AVI_DEMO_CLUSTER_ZONE}"
 echo
 echo "This may take a minute or so..."
 
-cmd="gcloud container clusters create ${AVI_DEMO_CLUSTER_NAME} --zone=${AVI_DEMO_CLUSTER_ZONE} --machine-type=${AVI_DEMO_NODE_MACHINE_TYPE} --num-nodes=${AVI_DEMO_NODE_COUNT}"
+cmd="gcloud --quiet container clusters create ${AVI_DEMO_CLUSTER_NAME} --zone=${AVI_DEMO_CLUSTER_ZONE} --machine-type=${AVI_DEMO_NODE_MACHINE_TYPE} --num-nodes=${AVI_DEMO_NODE_COUNT}"
 echo ${cmd}
 eval ${cmd}
 

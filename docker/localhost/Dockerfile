@@ -11,7 +11,7 @@ RUN apk update \
        gcc \
        make \
        vim \
-       emacs \
+       emacs-nox \
        openssh \
        python3 \
        py3-pip \
@@ -25,13 +25,19 @@ RUN apk update \
        jq \
   && ln -s /usr/bin/python3 /usr/bin/python \
   && ln -s /usr/bin/pip3 /usr/bin/pip \
-  && pip3 install avisdk \
+  && pip3 install avisdk ansible \
   && cd /usr/local/ \
   && curl https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-239.0.0-linux-x86_64.tar.gz | tar xfvz - \
   && /usr/local/google-cloud-sdk/install.sh \
   && /usr/local/google-cloud-sdk/bin/gcloud components install kubectl \
   && rm -rf /tmp/google-cloud-sdk \
-  && apk del git gcc make openssh python3-dev musl-dev libffi-dev openssl-dev \
+  && apk del \
+     gcc \
+     make \
+     python3-dev \
+     musl-dev \
+     libffi-dev \
+     openssl-dev \
   && adduser --disabled-password --gecos "" avi
 
 COPY avi.sudo /etc/sudoers.d/avi

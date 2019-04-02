@@ -8,7 +8,7 @@ network=default
 
 # TODO: Add idempotency
 
-cmd="gcloud compute \
+cmd="gcloud --quiet compute \
   instances create ${AVI_DEMO_CONTROLLER_INSTANCE_NAME} \
   --zone=${AVI_DEMO_CONTROLLER_INSTANCE_ZONE} \
   --machine-type=${AVI_DEMO_CONTROLLER_INSTANCE_MACHINE_TYPE} \
@@ -28,7 +28,7 @@ eval ${cmd}
 
 ## TODO: Set up appropriate firewall rules for controller
 
-cmd="gcloud compute \
+cmd="gcloud --quiet compute \
        firewall-rules create avi-allow-http \
        --direction=INGRESS \
        --priority=1000 \
@@ -41,7 +41,7 @@ echo "Creating http ingress firewall rule for controller:"
 echo ${cmd}
 eval ${cmd}
 
-cmd="gcloud compute \
+cmd="gcloud --quiet compute \
        firewall-rules create avi-allow-https \
        --direction=INGRESS \
        --priority=1000 \
