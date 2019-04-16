@@ -20,7 +20,7 @@ controller_starting=1
 echo "Waiting for Avi Controller to start. This may take a few minutes..."
 while [[ ${controller_starting} == 1 ]]; do
   status_code=$(curl -k -s -o /dev/null -w "%{http_code}" https://${AVI_DEMO_CONTROLLER_IP}/)
-  if [[ ${status_code} == 301 ]]; then
+  if [[ ${status_code} == 200 ]]; then
     controller_starting=0
     echo "Controller has started."
   else
