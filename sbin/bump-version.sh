@@ -1,5 +1,5 @@
 #!/bin/bash
-set -ex
+
 # Thanks goes to @pete-otaqui for the initial gist:
 # https://gist.github.com/pete-otaqui/4188238
 #
@@ -83,7 +83,7 @@ if [[ -f ${VERSION_FILE} ]]; then
     echo -e "${NOTICE_FLAG} Will set new version to be ${WHITE}$INPUT_STRING"
     echo ${INPUT_STRING} > ${VERSION_FILE} \
       && echo "## $INPUT_STRING ($NOW)" > ${tmpfile} \
-      && git log --pretty=format:"  - %s" "v$BASE_STRING"...HEAD >> ${tmpfile} \
+      && git log --pretty=format:"  - %s" "v${BASE_STRING}...HEAD" >> ${tmpfile} \
       && echo "" >> ${tmpfile} \
       && echo "" >> ${tmpfile} \
       && cat ${CHANGELOG_FILE} >> ${tmpfile} \
@@ -91,7 +91,7 @@ if [[ -f ${VERSION_FILE} ]]; then
       && echo -e "$ADJUSTMENTS_MSG"
       read
       echo -e "$PUSHING_MSG" \
-      && git add ${CHANGELOG_FILE} VERSION \
+      && git add ${CHANGELOG_FILE} ${VERSION_FILE} \
       && git commit -m "Bump version to ${INPUT_STRING}." \
       && git tag -a -m "Tag version ${INPUT_STRING}." "v$INPUT_STRING" \
       && git push origin --tags \
