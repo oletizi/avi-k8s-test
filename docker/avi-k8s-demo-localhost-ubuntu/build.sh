@@ -3,7 +3,8 @@
 mydir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 root=$( cd "${mydir}/../.." && pwd )
 bin=$( cd "${root}/bin" && pwd )
-
+sbin=$( cd "${root}/sbin" && pwd )
+. "${sbin}/config.sh"
 . "${bin}/config.sh"
 . "${mydir}/config.sh"
 
@@ -15,6 +16,4 @@ echo
 echo "    ${build_cmd}"
 echo
 
-cd ${mydir} \
-   && ${build_cmd} \
-    && docker push ${localhost_image}
+cd ${mydir} && ${build_cmd}

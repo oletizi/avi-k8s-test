@@ -1,12 +1,22 @@
 #!/usr/bin/env bash
 
+set -vex
+
 mydir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 root=$( cd "${mydir}/../../" && pwd)
 bin=$( cd "${root}/bin" && pwd )
-
+. ${bin}/config.sh
 . ${mydir}/config.sh
 
-docker pull ${localhost_image} 
+assert_not_empty "Image name not defined!" ${localhost_image}
+assert_not_empty "Container name not defined!" ${localhost_container}
+
+version=$(cat "${root}/VERSION")
+assert_not_empty "Can't determine version!" ${version}
+
+localhost_image="${localhost_image}:${version}"
+docker pull ${localhost_image}
+assert_success $? "Unable to pull ${localhost_image}"
 
 if [[ "" != $(docker ps | grep ${localhost_container}) ]]; then
     cmd="docker kill ${localhost_container}"
