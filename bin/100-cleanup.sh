@@ -18,3 +18,5 @@ if [[ "" != $(gcloud compute instances list | grep ${AVI_DEMO_CONTROLLER_INSTANC
     echo
     gcloud --quiet compute instances delete --zone=${AVI_DEMO_CONTROLLER_INSTANCE_ZONE} ${AVI_DEMO_CONTROLLER_INSTANCE_NAME}
 fi
+
+rm ${AVI_DEMO_JOURNAL}

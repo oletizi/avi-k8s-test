@@ -7,6 +7,8 @@ ansible=$( cd "${root}/ansible" && pwd )
 . ${mydir}/config.sh
 . ${AVI_DEMO_CONFIG}
 
+assert_journal "07"
+
 tmp_hosts=${AVI_DEMO_ANSIBLE_HOSTS_FILE}
 cp ${ansible}/hosts.yml ${tmp_hosts}
 
@@ -35,5 +37,8 @@ echo "Ansible hosts file contents:"
 cat ${tmp_hosts}
 
 cmd="ansible-playbook -i ${tmp_hosts} ${ansible}/controller_install.yml"
-echo "Executing ansible-playbook to install the Avi controller: ${cmd}"
+echo "Executing ansible-playbook to install the Avi Controller: ${cmd}"
 ${cmd}
+assert_success $? "Unable to install Avi Controller. Please try again."
+
+journal "08"

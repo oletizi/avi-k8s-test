@@ -7,6 +7,13 @@ export AVI_DEMO_CONFIG="${HOME}/.avi-demo-config"
 export AVI_DEMO_PROJECT=$(gcloud config get-value project)
 export AVI_DEMO_ZONE="us-central1-a"
 
+export AVI_DEMO_JOURNAL=~/.avi-k8s-demo-journal
+
+# gcloud config
+export AVI_DEMO_GCLOUD_QUIET="--quiet"
+export AVI_DEMO_GCLOUD_VERBOSITY="--verbosity=error"
+export AVI_DEMO_GCLOUD_GLOBAL_PARAMS="${AVI_DEMO_GCLOUD_QUIET} ${AVI_DEMO_GCLOUD_VERBOSITY}"
+
 
 # GKE config
 export AVI_DEMO_CLUSTER_NAME="avi-demo"
@@ -33,3 +40,30 @@ export AVI_DEMO_AVISDK_ROLE_VERSION=18.2.2
 export AVI_DEMO_AVICONFIG_ROLE_VERSION=18.2.2
 export AVI_DEMO_AVICONTROLLER_ROLE_VERSION=18.2.1
 
+function journal() {
+  step=$1
+  echo "${step}:1" >> ${AVI_DEMO_JOURNAL}
+}
+
+function assert_success() {
+  status=$1
+  msg=$2
+  if [[ ${status} -ne 0 ]]; then
+    echo ${msg} && exit 1
+  fi
+}
+
+function assert_not_empty() {
+  msg=$1
+  value=$2
+  if [[ ${value} == "" ]]; then
+    echo ${msg} && exit 1
+  fi
+}
+
+function assert_journal() {
+  step=$1
+  if [[ $(grep "${step}:1" ${AVI_DEMO_JOURNAL}) == "" ]]; then
+    echo "Please run step ${step} first!" && exit 1
+  fi
+}

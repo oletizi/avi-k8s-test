@@ -2,7 +2,7 @@
 #
 # XXX: TODO:
 # - Remove the redundancy
-# - add error checking
+# - add error checking, atomicity & idempotency
 #
 mydir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 root=$( cd "${mydir}/.." && pwd )
@@ -10,12 +10,15 @@ root=$( cd "${mydir}/.." && pwd )
 . ${mydir}/config.sh
 . ${AVI_DEMO_CONFIG}
 
+assert_journal "06"
+
 controller=${AVI_DEMO_CONTROLLER_HOSTNAME}
 setup_dir="/opt/avi/controller/data/"
 
 # install Docker CE
+# TODO: assert success of each command on the remote host
 
-cmd="ssh ${controller} sudo apt-get remove docker docker-engine docker.io containerd runc"
+cmd="ssh -o \"StrictHostKeyChecking=no\" ${controller} sudo apt-get remove docker docker-engine docker.io containerd runc"
 echo "Executing ${cmd}"
 ${cmd}
 
@@ -54,3 +57,5 @@ ${cmd}
 cmd="ssh ${controller} sudo mv /tmp/setup.json ${setup_dir}"
 echo "Executing ${cmd}"
 ${cmd}
+
+journal "07"
