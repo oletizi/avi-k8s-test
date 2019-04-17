@@ -1,5 +1,5 @@
 ## 0.17.0 (April 17, 2019)
-
+  - merged versioning branch into master to support project, git, and docker image versioning
 
 ## 0.16.0-versioning (April 17, 2019)
   - - updated the docker image start script to work with new names
