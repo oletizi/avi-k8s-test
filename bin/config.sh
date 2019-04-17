@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+export DOCKERHUB_USERNAME=oletizi
+
 # Demo config file for storing transient cluster and controller configuration
 export AVI_DEMO_CONFIG="${HOME}/.avi-demo-config"
 

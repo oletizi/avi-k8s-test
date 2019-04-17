@@ -1,14 +1,15 @@
 #!/usr/bin/env bash
 
-set -exv
+set -ex
 
 mydir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 root=$( cd "${mydir}/.." && pwd )
+bin=$( cd "${root}/bin" && pwd )
 docker=$( cd "${root}/docker/avi-k8s-demo-localhost" && pwd )
 version_file="${root}/VERSION"
 
 . "${mydir}/config.sh"
-. "${root}/bin/config.sh"
+. "${bin}/config.sh"
 . "${docker}/config.sh"
 
 assert_not_empty "Localhost docker image name not defined!" ${localhost_image}
@@ -23,5 +24,5 @@ git pull \
   && git push \
   && git push --tags \
   && docker push ${localhost_image}:${version}
-assert_success $? "Release failed!"
+
 

@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-set -vex
-
 mydir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 root=$( cd "${mydir}/../../" && pwd)
 bin=$( cd "${root}/bin" && pwd )
