@@ -1,3 +1,6 @@
+## 0.16.0-versioning (April 17, 2019)
+  - - updated the docker image start script to work with new names
+
 ## 0.15.0-versioning (April 16, 2019)
 
 
