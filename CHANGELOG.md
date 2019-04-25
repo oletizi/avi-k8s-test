@@ -1,3 +1,8 @@
+## 0.18.0 (April 25, 2019)
+  - - added m4 to docker image - added avi_creds.yml as an m4 template
+  - - added a facility to determine non-colliding NS and EW subnets
+  - updated CHANGELOG.md
+
 ## 0.17.0 (April 17, 2019)
   - merged versioning branch into master to support project, git, and docker image versioning
 
