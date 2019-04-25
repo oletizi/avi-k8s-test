@@ -1,5 +1,8 @@
 TODO
 
+Sample app:
+  https://gitlab.com/avinetworks/hipster-app
+
 # 04-create-controller-host.sh
 
 * Check for existence of firewall rules before attempting to create
