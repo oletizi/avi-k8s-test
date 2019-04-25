@@ -10,6 +10,11 @@ if [[ -f ${AVI_DEMO_CONFIG} ]]; then
   rm ${AVI_DEMO_CONFIG}
 fi
 
+function next_subnet() {
+  subnet=$1
+  echo $(echo "${subnet}" | awk -F. '{ print $1"."$2"."$3+1"."$4 }' )
+}
+
 # gather ssh keys for gcloud compute resources and add them to ssh config
 #gcloud --quiet compute config-ssh
 cmd="gcloud ${AVI_DEMO_GCLOUD_GLOBAL_PARAMS} compute config-ssh --force-key-file-overwrite"
@@ -28,16 +33,49 @@ controller_ip=$(gcloud ${AVI_DEMO_GCLOUD_GLOBAL_PARAMS} compute instances descri
 assert_not_empty "Unable to determine the Controller IP address. Please try again." ${controller_ip}
 echo "Avi controller host IP address: ${controller_ip}"
 
-
+# Get IP address of the Kubernetes master node
 echo "Fetching cluster master IP address..."
 master_ip=$(gcloud ${AVI_DEMO_GCLOUD_GLOBAL_PARAMS} container clusters describe --zone=${AVI_DEMO_CLUSTER_ZONE} --format="json" ${AVI_DEMO_CLUSTER_NAME} | jq -r .endpoint)
 assert_not_empty "Unable to determine the Kubernetes master node IP address. Please try again." ${master_ip}
 echo "Cluster master IP address: ${master_ip}"
 
+# Get the project name
 echo "Fetching current project name..."
 project_name=$(gcloud ${AVI_DEMO_GCLOUD_GLOBAL_PARAMS} config list --format 'value(core.project)' 2>/dev/null)
 assert_not_empty "Unable to determine the gcloud project name. Please try again." ${project_name}
 echo "Current project name: ${project_name}"
+
+# Determine non-colliding subnets for EW && NS networks
+echo "Determining NS and EW subnets..."
+cmd="gcloud compute networks subnets list --filter=region:(${AVI_DEMO_REGION}) --network=default"
+echo "Fetching existing subnets: ${cmd}"
+existing_subnets=$( ${cmd} )
+echo "Existing subnets:"
+echo ${existing_subnets}
+
+subnet="10.0.0.0"
+ew_subnet=""
+ns_subnet=""
+
+# TODO:
+#  - range-checking--subnet values can overflow
+#  - error-checking--handle errors from sub-shells
+while [[ ${ew_subnet} == "" || ${ns_subnet} == "" ]]; do
+  while [[ $( echo "${existing_subnets}" | grep "${subnet}" ) != "" ]]; do
+    echo "Subnet candidate ${subnet} collides with existing subnet. Choosing new candidate..."
+    #subnet=$(echo "${subnet}" | awk -F. '{ print $1"."$2"."$3+1"."$4 }' )
+    subnet=$( next_subnet "${subnet}" )
+    echo "New subnet candidate: ${subnet}"
+  done
+  if [[ "${ew_subnet}" == "" ]]; then
+    ew_subnet=${subnet}
+    subnet=$( next_subnet "${subnet}" )
+    echo "ew_subnet: ${ew_subnet}"
+  else
+    ns_subnet=${subnet}
+    echo "ns_subnet: ${ns_subnet}"
+  fi
+done
 
 # Write transient config to configuration file
 # XXX: This could be prettier

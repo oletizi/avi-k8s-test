@@ -9,6 +9,8 @@ ansible=$( cd "${root}/ansible" && pwd )
 
 assert_journal "08"
 
+
+
 default_avi_password=$1
 
 playbook=${HOME}/devops/ansible/gcp/controller_kcloud.yaml

@@ -113,6 +113,14 @@ hostname into a temporary configuration file: ``~/.avi-demo-config``
    
  ## Misc 
  *TODO:* 
+ * From Ranga (4/16/2019:
+   > We should parametrize ns_subnet, ns_subnet_start. ns_subnet_end from the command line and mention that this should 
+   be a subnet that doesn't exist or overlap with another subnet in the GKE Nodes' network
+ * From Ranga, vis-a-vis the 'ns' section of ansible/avi_config.yml (4/16/2019):
+   > We should automatically extract vpc_network_name, region_name & project_ids from GKE. These should match values 
+   where the GKE cluster is configured.
+ * Augment build script to take a central file of dependencies (like ansible role versions, avi controller image 
+   version, etc) and bake them into the code and config--or, parameterize those values if practical. 
  * Add a note about GCP quotas
  * Add check for quotas
  * Potentially break out each step into its own page to make it more step-wise with more detail/explanation in each step
