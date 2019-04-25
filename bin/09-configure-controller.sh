@@ -13,8 +13,21 @@ assert_journal "08"
 
 default_avi_password=$1
 
-playbook=${HOME}/devops/ansible/gcp/controller_kcloud.yaml
+#playbook_src=${HOME}/devops/ansible/gcp/controller_kcloud.yaml
+playbook_src=${HOME}/devops/ansible/gcp/
 #playbook=${ansible}/controller_kcloud.yaml
+sandbox=$(mktemp -d)
+assert_success $? "Unable to create temporary directory for ansible sandbox!"
+
+cd "${playbook_src}" \
+  && cp \
+    controller_kcloud.yaml \
+    avi_config.yml
+    "${sandbox}"
+assert_success $? "Unable to copy ansible files to sandbox!"
+
+
+
 
 # poll controller until it's ready
 controller_starting=1

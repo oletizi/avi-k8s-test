@@ -10,6 +10,7 @@ RUN apk update \
        git \
        gcc \
        make \
+       m4 \
        vim \
        emacs-nox \
        openssh \

@@ -12,6 +12,7 @@ RUN sed -r -i -e 's/http:\/\/archive/mirror:\/\/mirrors/' -e 's/mirror:(.*?)\/ub
        git \
        gcc \
        make \
+       m4 \
        vim \
        emacs-nox \
        openssh-client \

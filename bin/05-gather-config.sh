@@ -63,7 +63,6 @@ ns_subnet=""
 while [[ ${ew_subnet} == "" || ${ns_subnet} == "" ]]; do
   while [[ $( echo "${existing_subnets}" | grep "${subnet}" ) != "" ]]; do
     echo "Subnet candidate ${subnet} collides with existing subnet. Choosing new candidate..."
-    #subnet=$(echo "${subnet}" | awk -F. '{ print $1"."$2"."$3+1"."$4 }' )
     subnet=$( next_subnet "${subnet}" )
     echo "New subnet candidate: ${subnet}"
   done
@@ -78,13 +77,15 @@ while [[ ${ew_subnet} == "" || ${ns_subnet} == "" ]]; do
 done
 
 # Write transient config to configuration file
-# XXX: This could be prettier
+# XXX: TODO: This could be prettier; maybe use m4
 echo "Writing transient configuration to config file: ${AVI_DEMO_CONFIG}..."
 echo "export AVI_DEMO_MASTER_IP=${master_ip}" > ${AVI_DEMO_CONFIG}
 echo "export AVI_DEMO_CONTROLLER_PASSWORD='${password}'" >> ${AVI_DEMO_CONFIG}
 echo "export AVI_DEMO_CONTROLLER_IP=${controller_ip}" >> ${AVI_DEMO_CONFIG}
 echo "export AVI_DEMO_CONTROLLER_HOSTNAME=${AVI_DEMO_CONTROLLER_INSTANCE_NAME}.${AVI_DEMO_CONTROLLER_INSTANCE_ZONE}.${AVI_DEMO_PROJECT}" >> ${AVI_DEMO_CONFIG}
 echo "export AVI_DEMO_PROJECT_NAME=${project_name}" >> ${AVI_DEMO_CONFIG}
+echo "export AVI_DEMO_EW_SUBNET=${ew_subnet}" >> ${AVI_DEMO_CONFIG}
+echo "export AVI_DEMO_NS_SUBNET=${ns_subnet}" >> ${AVI_DEMO_CONFIG}
 echo "Config file contents:"
 cat ${AVI_DEMO_CONFIG}
 
