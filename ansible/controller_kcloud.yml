@@ -6,7 +6,7 @@
   vars_files:
     - "avi_creds.yml"
   vars:
-    avi_con_version: 18.1.2-9058-20180623.025526
+    avi_con_version: 18.2.2-9224-20190306.090737
     cloud_name: Default-Cloud
     avi_config_state: present
     service_account_token: "{{ lookup('file', '~/.kube_service_token') }}"
@@ -16,13 +16,13 @@
   - name: Avi Credentials
     debug: msg="{{ avi_credentials }}"
 
-  # - name: Update user password
-  #   avi_useraccount:
-  #     controller: "{{controller_ip}}"
-  #     username: admin
-  #     password: "{{password}}"
-  #     old_password: "{{default_avi_password}}"
-  #     api_version: "18.1.2"
+  - name: Update user password
+    avi_useraccount:
+      controller: "{{controller_ip}}"
+      username: admin
+      password: "{{password}}"
+      old_password: "{{default_avi_password}}"
+      api_version: "18.1.2"
 
   - name: Avi Controller | Setup IPAM and Network
     include_role:

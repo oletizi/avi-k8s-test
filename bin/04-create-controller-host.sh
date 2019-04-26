@@ -72,6 +72,23 @@ if [[ $(gcloud compute firewall-rules list 2>&1| grep ${rule}) == "" ]]; then
   assert_success $? "Unable to create firewall rule: ${rule}. Please try again."
 fi
 
+rule="avi-allow-https-8443"
+if [[ $(gcloud compute firewall-rules list 2>&1| grep ${rule}) == "" ]]; then
+  cmd="gcloud ${AVI_DEMO_GCLOUD_GLOBAL_PARAMS} compute \
+         firewall-rules create ${rule} \
+         --direction=INGRESS \
+         --priority=1000 \
+         --network=${network} \
+         --action=ALLOW \
+         --rules=tcp:8443 \
+         --source-ranges=0.0.0.0/0 \
+         --target-tags=https-server"
+  echo "Creating https:8443 ingress firewall rule for controller:"
+  echo ${cmd}
+  eval ${cmd}
+  assert_success $? "Unable to create firewall rule: ${rule}. Please try again."
+fi
+
 echo "Controller host created. Please continue to step 05."
 
 journal "04"
