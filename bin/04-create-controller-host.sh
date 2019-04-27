@@ -6,14 +6,13 @@ root=$( cd "${mydir}/.." && pwd )
 
 network=default
 
-# TODO: Add atomicity and idempotency
+# TODO: Add a check to the host creation to poll if the instance is shutting down
 
 assert_journal "03"
 
 # Check to see if the controller host has already been created and create if if necessary
 
 if [[ $(gcloud compute instances list | grep ${AVI_DEMO_CONTROLLER_INSTANCE_NAME}) == "" ]]; then
-
   cmd="gcloud ${AVI_DEMO_GCLOUD_GLOBAL_PARAMS} compute \
     instances create ${AVI_DEMO_CONTROLLER_INSTANCE_NAME} \
     --zone=${AVI_DEMO_CONTROLLER_INSTANCE_ZONE} \
@@ -33,10 +32,6 @@ if [[ $(gcloud compute instances list | grep ${AVI_DEMO_CONTROLLER_INSTANCE_NAME
   eval ${cmd}
   assert_success $? "Unable to create Avi Controller host instance. Please try again."
 fi
-
-## TODO:
-# - Set up appropriate firewall rules for controller
-# XXX: Redirecting STERR in the if condition is dangerous. Find a better way to suppress verbose output
 
 rule="avi-allow-http"
 if [[ $(gcloud compute firewall-rules list 2>&1| grep ${rule}) == "" ]]; then

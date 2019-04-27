@@ -29,13 +29,14 @@ export AVI_DEMO_SERVICE_CLUSTER_ROLE="cluster-admin"
 export AVI_DEMO_SERVICE_CLUSTER_ROLE_BINDING_NAME="serviceaccounts-cluster-admin"
 
 # Controller config
+export AVI_DEMO_DEFAULT_PASSWORD="1CoolNewPassword"
 export AVI_DEMO_CONTROLLER_INSTANCE_NAME="avi-tutorial-controller"
 export AVI_DEMO_CONTROLLER_INSTANCE_IMAGE="ubuntu-1804-bionic-v20190307"
 export AVI_DEMO_CONTROLLER_INSTANCE_IMAGE_PROJECT="ubuntu-os-cloud"
 export AVI_DEMO_CONTROLLER_INSTANCE_ZONE=${AVI_DEMO_ZONE}
 # TODO: this should probably be called instance *network* not *subnet*; find out for sure. --Orion
 export AVI_DEMO_CONTROLLER_INSTANCE_SUBNET="default"
-export AVI_DEMO_CONTROLLER_INSTANCE_MACHINE_TYPE="n1-standard-4"
+export AVI_DEMO_CONTROLLER_INSTANCE_MACHINE_TYPE="n1-highmem-4"
 export AVI_DEMO_CONTROLLER_INSTANCE_BOOT_DISK_SIZE="80GB"
 
 # Ansible config

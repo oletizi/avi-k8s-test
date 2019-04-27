@@ -16,9 +16,9 @@ controller=${AVI_DEMO_CONTROLLER_HOSTNAME}
 setup_dir="/opt/avi/controller/data/"
 
 # install Docker CE
-# TODO: assert success of each command on the remote host
+# TODO: assure success of each command on the remote host before proceeding
 
-cmd="ssh -o \"StrictHostKeyChecking=no\" ${controller} sudo apt-get remove docker docker-engine docker.io containerd runc"
+cmd="ssh ${controller} sudo apt-get remove docker docker-engine docker.io containerd runc"
 echo "Executing ${cmd}"
 ${cmd}
 

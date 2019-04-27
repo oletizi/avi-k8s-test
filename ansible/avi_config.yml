@@ -6,16 +6,27 @@ avi_config:
         usable_network_refs:
           - "/api/network?name=ew"
       type: IPAMDNS_TYPE_INTERNAL
+# XXX: TODO: This commented block is the configuration Ranga suggested. Unfortunately, it fails in a way that *looks* like the controller
+# doesn't have the right credentials to do anything in GCP.
+#
+# The uncommented block is what I was using before that at least is able to create service engines.
+#
+#    - name: ns
+#      tenant_ref: "/api/tenant?name=admin"
+#      type: IPAMDNS_TYPE_GCP
+#      gcp_profile:
+#        usable_network_refs:
+#          - "/api/network?name=ns"
+#        vpc_network_name: "default"
+#        region_name: "{{ region_name }}"
+#        se_project_id: "astral-chassis-136417"
+#        network_host_project_id: "astral-chassis-136417"
     - name: ns
       tenant_ref: "/api/tenant?name=admin"
-      type: IPAMDNS_TYPE_GCP
-      gcp_profile:
+      internal_profile:
         usable_network_refs:
           - "/api/network?name=ns"
-        vpc_network_name: "default"
-        region_name: "us-central1"
-        se_project_id: "astral-chassis-136417"
-        network_host_project_id: "astral-chassis-136417"
+      type: IPAMDNS_TYPE_INTERNAL
     - name: ns_d
       tenant_ref: "/api/tenant?name=admin"
       internal_profile:

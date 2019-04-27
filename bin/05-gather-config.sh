@@ -8,6 +8,7 @@ assert_journal "04"
 
 
 if [[ -f ${AVI_DEMO_CONFIG} ]]; then
+  . ${AVI_DEMO_CONFIG}
   rm ${AVI_DEMO_CONFIG}
 fi
 
@@ -29,9 +30,13 @@ ${cmd} > /dev/null
 
 assert_success $? "Unable to configure ssh. Please try again."
 
-# Generate a password to use for the controller
-password=$(< /dev/urandom tr -dc _A-Z-a-z-0-9| head -c${1:-32};echo;)
-assert_not_empty "Unable to generate password for Avi Controller. Please try again." ${password}
+# If the password hasn't already been set, generate a password to use for the controller
+if [[ ${AVI_DEMO_CONTROLLER_PASSWORD} == "" ]]; then
+  password=$(< /dev/urandom tr -dc _A-Z-a-z-0-9| head -c${1:-32};echo;)
+  assert_not_empty "Unable to generate password for Avi Controller. Please try again." ${password}
+else
+  password="${AVI_DEMO_CONTROLLER_PASSWORD}"
+fi
 
 # Get the controller host ip
 echo "Fetching Avi controller host IP address..."
@@ -114,7 +119,7 @@ cmd="m4
   -D __PROJECT_NAME__=${project_name} \
   -D __MASTER_NODE__=${master_ip} \
   ${ansible}/avi_creds.yml.m4"
-
+echo "Transforming avi_creds.yml: ${cmd}..."
 ${cmd} > "${avi_creds}"
 
 echo "Ansible configuration:"
@@ -131,7 +136,6 @@ ${controller_hostname} ansible_connection=ssh
 EOF
 
 # Write transient config to configuration file
-# XXX: TODO: This could be prettier; maybe use m4
 echo "Writing transient configuration to config file: ${AVI_DEMO_CONFIG}..."
 tee ${AVI_DEMO_CONFIG} <<EOF
 export AVI_DEMO_MASTER_IP=${master_ip}
@@ -144,16 +148,4 @@ export AVI_DEMO_NS_SUBNET=${ns_subnet}
 EOF
 
 journal "05"
-
-# TODO: Cleanup
-
-#echo "export AVI_DEMO_MASTER_IP=${master_ip}" > ${AVI_DEMO_CONFIG}
-#echo "export AVI_DEMO_CONTROLLER_PASSWORD='${password}'" >> ${AVI_DEMO_CONFIG}
-#echo "export AVI_DEMO_CONTROLLER_IP=${controller_ip}" >> ${AVI_DEMO_CONFIG}
-#echo "export AVI_DEMO_CONTROLLER_HOSTNAME=${controller_hostname}" >> ${AVI_DEMO_CONFIG}
-#echo "export AVI_DEMO_PROJECT_NAME=${project_name}" >> ${AVI_DEMO_CONFIG}
-#echo "export AVI_DEMO_EW_SUBNET=${ew_subnet}" >> ${AVI_DEMO_CONFIG}
-#echo "export AVI_DEMO_NS_SUBNET=${ns_subnet}" >> ${AVI_DEMO_CONFIG}
-#echo "Config file contents:"
-#cat ${AVI_DEMO_CONFIG}
 
