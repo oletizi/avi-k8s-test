@@ -29,7 +29,9 @@ while [[ ${controller_starting} == 1 ]]; do
   status_code=$(curl -k -s -o /dev/null -w "%{http_code}" https://${AVI_DEMO_CONTROLLER_IP}/\#\!/login)
   if [[ ${status_code} == 200 ]]; then
     controller_starting=0
-    echo "Controller has started."
+    sleep_time=30
+    echo "Controller has started. Waiting for ${sleep_time} seconds for housekeeping to finish."
+    sleep ${sleep_time}
   else
     echo -n $(date +"%T")
     echo ": Controller is still starting..."

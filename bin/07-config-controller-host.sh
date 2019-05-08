@@ -2,7 +2,7 @@
 #
 # XXX: TODO:
 # - Remove the redundancy
-# - add error checking, atomicity & idempotency
+# - Potentially wrap all of this up in a docker image instead of configuring a plain-vanilla Ubuntu host
 #
 mydir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 root=$( cd "${mydir}/.." && pwd )
@@ -14,11 +14,6 @@ assert_journal "06"
 
 controller=${AVI_DEMO_CONTROLLER_HOSTNAME}
 setup_dir="/opt/avi/controller/data/"
-
-cmd="ssh ${controller} sudo apt-get remove docker docker-engine docker.io containerd runc"
-echo "Executing ${cmd}"
-${cmd}
-assert_success $? "Failed to remove existing un-needed components"
 
 cmd="ssh ${controller} sudo apt-get update"
 echo "Executing ${cmd}"
